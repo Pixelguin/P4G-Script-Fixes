@@ -1,0 +1,107 @@
+
+// 
+// FlowScript decompiled using Atlus Script Tools by TGE (2017-2021)
+// In the unfortunate case of any bugs, please report them back to me.
+// 
+
+
+// 
+// Imports
+// 
+
+import( "f007.bf" );
+import( "f007.msg" );
+
+// Procedure Index: 20
+void check_myroom_tv_hook()
+{
+    int var26;
+    int var27;
+    int var28;
+    int var29;
+    var26 = 0;
+    var27 = 0;
+    var28 = 0;
+    // bit id (((((((0) + (1024)) + (2048)) + (1024)) + (512)) + (512)) + (512)) + (83) = 5715
+    
+    if ( ( GET_TIME_OF_DAY() != 5 ) || ( BIT_CHK( ( ( ( ( ( ( ( 0 + 0x0400 ) + 0x0800 ) + 0x0400 ) + 0x0200 ) + 0x0200 ) + 0x0200 ) + 83 ) ) == 1 ) )
+    {
+        var27 = ( var27 + 1 );
+    }
+
+    // bit id ((0) + (1024)) + (869) = 1893
+    // bit id (((0) + (1024)) + (2048)) + (255) = 3327
+    // bit id ((0) + (1024)) + (868) = 1892
+    // bit id ((0) + (1024)) + (1632) = 2656
+    
+    if ( ( ( ( ( ( EVT_FUNCTION_0026() == 1 ) || ( CHECK_TIME_SPAN( 11, 27, 11, 29 ) == 1 ) ) || ( CHECK_TIME_SPAN( 12, 4, 12, 6 ) == 1 ) ) || ( CHECK_TIME_SPAN( 12, 11, 12, 13 ) == 1 ) ) || ( CHECK_TIME_SPAN( 12, 18, 12, 20 ) == 1 ) ) || ( CHECK_TIME_SPAN( 2, 12, 2, 14 ) == 1 ) )
+    {
+        
+        if ( BIT_CHK( ( ( 0 + 0x0400 ) + 869 ) ) == 1 )
+        {
+            var28 = ( var28 + 4 );
+        }
+        else if ( BIT_CHK( ( ( ( 0 + 0x0400 ) + 0x0800 ) + 255 ) ) == 0 )
+        {
+            
+            if ( GET_TIME_OF_DAY() == 5 )
+            {
+                
+                if ( BIT_CHK( ( ( 0 + 0x0400 ) + 868 ) ) == 1 )
+                {
+                    var28 = ( var28 + 4 );
+                }
+
+            }
+            else if ( BIT_CHK( ( ( 0 + 0x0400 ) + 1632 ) ) == 1 )
+            {
+                var28 = ( var28 + 4 );
+            }
+
+        }
+
+    }
+    else 
+    {
+        var28 = ( var28 + 4 );
+    }
+
+    var26 = ( var27 + var28 );
+    
+    if ( DATE_CHK( 4, 11 ) )
+    {
+        OPEN_MSG_WIN();
+        MSG( HEYA_NERUIGAIDAME_0411 );
+        CLOSE_MSG_WIN();
+    }
+    else if ( var26 != ( 1 + 4 ) )
+    {
+        OPEN_MSG_WIN();
+        MSG( SF__TV_MIRU );
+        SET_MASK( var26 );
+        SEL_CHK_PAD( 14, 3 );
+        var29 = SEL( TV_WATCH_SEL );
+        CLOSE_MSG_WIN();
+        
+        if ( var29 == 0 )
+        {
+            tv_watch_mayonakatv();
+        }
+        else if ( var29 == 1 )
+        {
+            tv_watch_weather();
+        }
+        else if ( var29 == 2 )
+        {
+            tv_watch_tuuhan();
+        }
+
+        return;
+    }
+    else 
+    {
+        tv_watch_weather();
+        return;
+    }
+
+}
